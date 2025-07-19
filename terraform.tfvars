@@ -19,3 +19,16 @@ tags = {
   Environment = "dev"
   ManagedBy   = "Terraform"
 }
+
+# Add to your existing terraform.tfvars
+enable_user_management = true
+
+workspace_admins = [
+  {
+    email        = "team@taughtlab.com"
+    display_name = "Admin"
+  }
+]
+
+# Leave empty or add only NEW users
+workspace_users = []

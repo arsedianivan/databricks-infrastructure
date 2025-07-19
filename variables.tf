@@ -46,3 +46,30 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+# Update these variables in your variables.tf
+variable "workspace_admins" {
+  description = "List of admin users for the workspace"
+  type = list(object({
+    email        = string
+    display_name = string
+  }))
+  default = []
+  # Remove sensitive = true
+}
+
+variable "workspace_users" {
+  description = "List of regular users for the workspace"
+  type = list(object({
+    email        = string
+    display_name = string
+  }))
+  default = []
+  # Remove sensitive = true
+}
+
+variable "enable_user_management" {
+  description = "Enable automatic user management via Terraform"
+  type        = bool
+  default     = false
+}

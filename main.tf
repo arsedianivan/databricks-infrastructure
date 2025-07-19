@@ -322,12 +322,3 @@ resource "aws_s3_bucket_policy" "root_storage" {
     aws_s3_bucket_ownership_controls.root_storage
   ]
 }
-
-# Add bucket ownership controls
-resource "aws_s3_bucket_ownership_controls" "root_storage" {
-  bucket = aws_s3_bucket.root_storage.id
-
-  rule {
-    object_ownership = "BucketOwnerEnforced"  # ← Fixed: was "BucketOwnerFullControl"
-  }
-}
