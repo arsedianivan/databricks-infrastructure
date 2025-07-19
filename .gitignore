@@ -1,24 +1,5 @@
 # Terraform files
+*.tfvars
 *.tfstate
 *.tfstate.*
 .terraform/
-.terraform.lock.hcl
-crash.log
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
-
-# Environment variables
-.env
-*.auto.tfvars
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDE files
-.idea/
-.vscode/
-*.swp
-*.swo
