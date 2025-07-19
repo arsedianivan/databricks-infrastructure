@@ -5,7 +5,7 @@ databricks_account_id = "0cbb7551-15aa-43b5-b14f-b4a712c14737"
 
 # From Service Principal creation
 client_id            = "43c66a10-7bcb-46b8-8ad3-366dbe331026"
-client_secret        = "Dose7e1d09a794423447f834ee5805c79dc0"
+client_secret        = "dose25797271c038a31eed653d378c85f412"
 
 # Your chosen values
 workspace_name       = "taughtlab-dev"

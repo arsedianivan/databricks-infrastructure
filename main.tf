@@ -130,7 +130,6 @@ resource "time_sleep" "wait_for_role" {
 # Create Databricks credential configuration
 resource "databricks_mws_credentials" "this" {
   provider         = databricks.mws
-  account_id       = var.databricks_account_id
   credentials_name = "${local.prefix}-credentials"
   role_arn        = aws_iam_role.databricks_cross_account.arn
   
