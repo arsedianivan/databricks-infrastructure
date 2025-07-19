@@ -138,10 +138,15 @@ resource "databricks_mws_credentials" "this" {
 
 # Create Databricks storage configuration
 resource "databricks_mws_storage_configurations" "this" {
-  provider                   = databricks.mws
-  account_id                 = var.databricks_account_id
-  storage_configuration_name = "${local.prefix}-storage"
-  bucket_name               = aws_s3_bucket.root_storage.id
+    provider                   = databricks.mws
+    account_id                 = var.databricks_account_id
+    storage_configuration_name = "${local.prefix}-storage"
+    bucket_name               = aws_s3_bucket.root_storage.id
+
+    depends_on = [
+        aws_s3_bucket_policy.root_storage,
+        aws_s3_bucket_ownership_controls.root_storage
+  ]
 }
 
 # Create VPC for Databricks (required for production use)
@@ -268,4 +273,61 @@ provider "databricks" {
   alias = "workspace"
   host  = databricks_mws_workspaces.this.workspace_url
   token = databricks_mws_workspaces.this.token[0].token_value
+}
+
+# Add bucket ownership controls
+resource "aws_s3_bucket_ownership_controls" "root_storage" {
+  bucket = aws_s3_bucket.root_storage.id
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
+
+# Add explicit bucket policy for Databricks
+resource "aws_s3_bucket_policy" "root_storage" {
+  bucket = aws_s3_bucket.root_storage.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "DatabricksBucketAccess"
+        Effect = "Allow"
+        Principal = {
+          AWS = [
+            aws_iam_role.databricks_cross_account.arn,
+            "arn:aws:iam::414351767826:root"  # Databricks AWS account
+          ]
+        }
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:ListBucket",
+          "s3:GetBucketLocation",
+          "s3:PutObjectAcl",
+          "s3:GetObjectAcl"
+        ]
+        Resource = [
+          aws_s3_bucket.root_storage.arn,
+          "${aws_s3_bucket.root_storage.arn}/*"
+        ]
+      }
+    ]
+  })
+  
+  depends_on = [
+    aws_s3_bucket_public_access_block.root_storage,
+    aws_s3_bucket_ownership_controls.root_storage
+  ]
+}
+
+# Add bucket ownership controls
+resource "aws_s3_bucket_ownership_controls" "root_storage" {
+  bucket = aws_s3_bucket.root_storage.id
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"  # ← Fixed: was "BucketOwnerFullControl"
+  }
 }
