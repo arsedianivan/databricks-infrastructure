@@ -1,5 +1,29 @@
-# Terraform files
-*.tfvars
+# Terraform
 *.tfstate
 *.tfstate.*
 .terraform/
+.terraform.lock.hcl
+*.tfvars
+!*.tfvars.example
+terraform.tfplan
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Secrets
+*.pem
+*.key
+*.pfx
+workspace_token.txt
+credentials.json
+
+# Logs
+*.log
+crash.log
+
+# Backups
+*.backup
+*.bak
+EOF
