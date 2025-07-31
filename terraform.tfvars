@@ -1,22 +1,22 @@
 # This file contains your actual values (add to .gitignore!)
 
 # Found from Account Console URL or Account Settings
-databricks_account_id = "0cbb7551-15aa-43b5-b14f-b4a712c14737"
+databricks_account_id = "<ACCOUNT_ID>"
 
 # From Service Principal creation
-client_id            = "43c66a10-7bcb-46b8-8ad3-366dbe331026"
-client_secret        = "dose25797271c038a31eed653d378c85f412"
+client_id            = "<CLIENT_ID>"
+client_secret        = "<CLIENT_SECRET>"
 
 # Your chosen values
-workspace_name       = "taughtlab-dev"
-environment          = "dev"
-aws_region           = "ap-southeast-2"
+workspace_name       = "<WORKSPACE_NAME>"
+environment          = "<ENVIRONMENT>"
+aws_region           = "<REGION>"
 
 # Optional: Add tags
 tags = {
-  Project     = "TaughtLab Data Platform"
-  Owner       = "TaughtLab"
-  Environment = "dev"
+  Project     = "<Project Name>"
+  Owner       = "<Owner Name>"
+  Environment = "<Env Name>"
   ManagedBy   = "Terraform"
 }
 
@@ -25,8 +25,8 @@ enable_user_management = true
 
 workspace_admins = [
   {
-    email        = "team@taughtlab.com"
-    display_name = "Admin"
+    email        = "<Email>"
+    display_name = "<Display_Name>"
   }
 ]
 
